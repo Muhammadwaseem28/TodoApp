@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import Todo from "../components/Todo";
-import{toast} from 'react-toastify'
+import { toast } from "react-toastify";
 import { db } from "../firebase";
 import {
   query,
@@ -31,8 +31,8 @@ function Home() {
   const createTodo = async (e) => {
     e.preventDefault();
     if (input === "") {
-      toast.error('Please enter the valid todo')
-      return
+      toast.error("Please enter the valid todo");
+      return;
     }
     await addDoc(collection(db, "todos"), {
       text: input,
@@ -47,7 +47,10 @@ function Home() {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let todosArr = [];
       querySnapshot.forEach((doc) => {
-        todosArr.push({ ...doc.data(), id: doc.id });
+        todosArr.push({
+          ...doc.data(),
+          id: doc.id,
+        });
       });
       setTodos(todosArr);
     });
@@ -63,10 +66,15 @@ function Home() {
   };
 
   //delete todos
-
   const deleteTodo = async (id) => {
+    if(deleteTodo) {
+    window.confirm("Do you want to delete the Todo ?")
+    }
     await deleteDoc(doc(db, "todos", id));
+    toast.success ("Todo deleted sucessfully")
   };
+   
+ 
 
   return (
     <div className={style.bg}>
