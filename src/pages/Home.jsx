@@ -67,11 +67,10 @@ function Home() {
 
   //delete todos
   const deleteTodo = async (id) => {
-    if(deleteTodo) {
-    window.confirm("Do you want to delete the Todo ?")
-    }
+   if(window.confirm('Do you want to delete the todo?')){
     await deleteDoc(doc(db, "todos", id));
     toast.success ("Todo deleted sucessfully")
+   }  
   };
    
  
